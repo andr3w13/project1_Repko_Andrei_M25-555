@@ -1,10 +1,15 @@
-from constants import ROOMS
-import player_actions as pa
 import math
+
+import player_actions as pa
+from constants import ROOMS
 from labyrinth_game.constants import COMMANDS
 
 
 def describe_current_room(game_state: dict[str, object]) -> None:
+    '''
+    Функция для вывода описания текущей комнаты
+    '''
+
     current_room = game_state['current_room']
     
     print(f'== {current_room.upper()} ==')
@@ -17,6 +22,9 @@ def describe_current_room(game_state: dict[str, object]) -> None:
 
 
 def solve_puzzle(game_state: dict[str, object]) -> None:
+    '''
+    Функция для решения загадок
+    '''
     current_room = game_state['current_room']
     if ROOMS[current_room]['puzzle'] is not None:
         print(ROOMS[current_room]['puzzle'][0])
@@ -33,7 +41,9 @@ def solve_puzzle(game_state: dict[str, object]) -> None:
             case 'trap_room':
                 if user_answer == ROOMS['trap_room']['puzzle'][1]:
                     print('Ответ верный!')
-                    print('Вы избежали попадания в ловушку.')
+                    print('Вы избежали попадания в ловушку и в награду ' \
+                    'получаете rusty_key от сокровищницы.')
+                    game_state['player_inventory'].append('rusty_key')
                     ROOMS['trap_room']['puzzle'] = None
                 else:
                     trigger_trap(game_state)
@@ -48,13 +58,17 @@ def solve_puzzle(game_state: dict[str, object]) -> None:
                 if user_answer == '12' or user_answer == 'двенадцать':
                     print('Ответ верный!')
                     ROOMS['garden']['puzzle'] = None
-                    print('Вы получаете таинственный золотой цветок.')
-                    game_state['player_inventory'].append('golden_flower')
+                    print('Ворота открываются и перед вами стоит ухожанный ' \
+                    'старинный фонтан, можете пройти к нему, пойдя на восток.')
+                    ROOMS['garden']['exits'].update({'east': 'fountain'}) 
                 else:
                     print('Ответ неверный.')
 
 
 def attempt_open_treasure(game_state: dict[str, object]) -> None:
+    '''
+    Функция открытия сундука с сокровищами
+    '''
     current_room = game_state['current_room']
     if 'treasure_key' in game_state['player_inventory']:
         print('Вы применяете ключ, и замок щёлкает. Сундук открыт!')
@@ -77,17 +91,26 @@ def attempt_open_treasure(game_state: dict[str, object]) -> None:
 
 
 def show_help(commands: dict[str, str] = COMMANDS) -> None:
+    '''
+    Вывод информации о командах
+    '''
     print("\nДоступные команды:")
     for cmd, desc in commands.items():
         print(f"  {cmd:<16} - {desc}")
 
 
 def pseudo_random(seed: int, modulo: int) -> int:
+    '''
+    Функция, которая генерирует псевдослучайное число
+    '''
     x = math.sin(seed * 28.12903) * 56483.09438
     return math.floor((x - math.floor(x)) * modulo)
 
 
 def trigger_trap(game_state: dict[str, object]) -> None:
+    '''
+    Функция, которая активирует ловушку
+    '''
     print('Ловушка активирована! Пол стал дрожать.')
     if game_state['player_inventory']:
         ind = pseudo_random(42, len(game_state['player_inventory']))
@@ -103,8 +126,13 @@ def trigger_trap(game_state: dict[str, object]) -> None:
 
 
 def random_event(game_state: dict[str, object]) -> None:
+    '''
+    Функция, которая случайным образом генерирует 
+    события при переходе из одной комнаты в другую
+    '''
     current_room = game_state['current_room']
-    if pseudo_random(42, 10) == 0:
+    EVENT_PROBABILITY = pseudo_random(42, 10)
+    if EVENT_PROBABILITY == 0:
         match pseudo_random(42, 2):
             case 0:
                 print('Вы находите монетку на полу.')

@@ -1,8 +1,11 @@
-from constants import ROOMS
 import utils
+from constants import ROOMS
 
 
 def show_inventory(game_state: dict[str, object]) -> None:
+    '''
+    Функция, которая показывает, что есть в инвентаре игрока
+    '''
     player_inventory = game_state['player_inventory']
     if player_inventory:
         print(*player_inventory)
@@ -11,6 +14,9 @@ def show_inventory(game_state: dict[str, object]) -> None:
 
 
 def get_input(prompt: str = "> ") -> str:
+    '''
+    Функция, которая считывает ввод
+    '''
     try:
         return input(prompt)
     except (KeyboardInterrupt, EOFError):
@@ -19,11 +25,15 @@ def get_input(prompt: str = "> ") -> str:
 
 
 def move_player(game_state: dict[str, object], direction: str) -> None:
+    '''
+    Функция перехода в другую комнату
+    '''
     current_room = game_state['current_room']
     if direction in ROOMS[current_room]['exits'].keys():
         if ROOMS[current_room]['exits'][direction] == 'treasure_room':
             if 'rusty_key' in game_state['player_inventory']:
-                print('Вы используете найденный ключ, чтобы открыть путь в комнату сокровищ.')
+                print('Вы используете найденный ключ, чтобы открыть путь ' \
+                'в комнату сокровищ.')
             else:
                 print('Дверь заперта. Нужен ключ, чтобы пройти дальше.')
                 return
@@ -36,6 +46,9 @@ def move_player(game_state: dict[str, object], direction: str) -> None:
 
 
 def take_item(game_state: dict[str, object], item_name: str) -> None:
+    '''
+    Функция для поднятия предмета
+    '''
     current_room = game_state['current_room']
     if item_name in ROOMS[current_room]['items']:
         if item_name != 'treasure_chest':
@@ -49,6 +62,9 @@ def take_item(game_state: dict[str, object], item_name: str) -> None:
 
 
 def use_item(game_state: dict[str, object], item_name: str) -> None:
+    '''
+    Функция для использования предмета
+    '''
     if item_name in game_state['player_inventory']:
         match item_name:
             case 'torch':

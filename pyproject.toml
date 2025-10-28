@@ -3,7 +3,7 @@ name = "project1-repko-andrei-m25-555"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Your Name",email = "you@example.com"}
+    {name = "Andrei Repko",email = "petrarka895@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.7"

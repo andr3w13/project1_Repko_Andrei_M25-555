@@ -1,8 +1,6 @@
 #!/usr/bin/env python
-from constants import ROOMS
-import utils
 import player_actions as pa
-
+import utils
 
 game_state = {
     'player_inventory': [], # Инвентарь игрока
@@ -13,6 +11,9 @@ game_state = {
 
 
 def process_command(game_state: dict[str, object], command: str) -> None:
+    '''
+    Обработчик команд игрока
+    '''
     command_splitted = command.split()
     match command_splitted[0]:
         case 'look':
@@ -43,6 +44,9 @@ def process_command(game_state: dict[str, object], command: str) -> None:
 
 
 def main() -> None:
+    '''
+    Функция, которая запускает основной цикл игры
+    '''
     print('Добро пожаловать в Лабиринт сокровищ!')
     utils.describe_current_room(game_state)
     while not game_state['game_over']:
