@@ -39,11 +39,11 @@ make project
 Используйте текстовые команды для перемещения, взаимодействия с предметами и победы.
 
 Примеры команд:
-look 
-go north/west/east/south
-take "имя предмета"
-solve
-quit
+* look 
+* go north/west/east/south
+* take "имя предмета"
+* solve
+* quit
 
 ### 4. Пример игрового процесса
 [![asciinema demo](https://asciinema.org/a/z2thhf471pIleEUYskJvZWEva.svg)](https://asciinema.org/a/z2thhf471pIleEUYskJvZWEva)
