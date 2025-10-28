@@ -13,22 +13,27 @@
 ```bash
 git clone https://github.com/<твой-логин>/project1_Repko_Andrei_M25-555.git
 cd project1_Repko_Andrei_M25-555
+```
 
 ### 2. Установите зависимости
 ```bash
 poetry install
+```
 
 или через Makefile
 ```bash
 make install
+```
 
 ### 3. Запуск игры
 ```bash
 poetry run project
+```
 
 или
 ```bash
 make project
+```
 
 После запуска появится приглашение командной строки.
 Используйте текстовые команды для перемещения, взаимодействия с предметами и победы.
@@ -41,7 +46,7 @@ solve
 quit
 
 ### 4. Пример игрового процесса
-[![asciinema demo](https://asciinema.org/a/z2thhf471pIleEUYskJvZWEva)](https://asciinema.org/a/z2thhf471pIleEUYskJvZWEva)
+[![asciinema demo](https://asciinema.org/a/z2thhf471pIleEUYskJvZWEva.svg)](https://asciinema.org/a/z2thhf471pIleEUYskJvZWEva)
 
 
 
